@@ -35,10 +35,35 @@ instructions below and you'll be up and running in minutes.
     rake db:migrate shoppe:setup
     rails server
 
+## Using a custom mailer
+
+You may want to override the default Shoppe email templates. In order to do so:
+
+1. Create a `config/initializers/shoppe.rb` file in your *Rails* project.
+2. Add the following snipped of code to the file:
+
+        Shoppe.setup do |config|
+          config.mailer = "Your::Mailer::Class"
+        end
+
+3. Create an `app/mailers/my_project/mailer.rb` file containing a class like this:
+
+    class Your::Mailer::Class < Shoppe::Mailer
+
+    It is important your mailer class **extends** the *Shoppe::Mailer* class.
+4. Place any of email templates you wish to override with the following names:
+  - accepted.(html|text).erb
+  - shipped.(html|text).erb
+  - rejected.(html|text).erb
+  - received.(html|text).erb
+  - new_password.(html|text).erb
+
+**Note**: the *Shoppe* gem no longer has two mailer classes (*UserMailer* and *OrderMailer*) but only one (namely *Shoppe::Mailer*)
+
 ## Contribution
 
-If you'd like to help with this project, please get in touch with me. The best place is on
-Twitter (@adamcooke) or by e-mail to adam@atechmedia.com.
+I do not plan on maintaining this project. However, in case you wish to contribute with a pull request, feel free to request it.
+I may try to look into it and merge it.
 
 ## License
 
